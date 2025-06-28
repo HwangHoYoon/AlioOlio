@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uscode.alioolio.api.google.vertex.service.VertexService;
 import com.uscode.alioolio.prompt.request.PromptResultReq;
 import com.uscode.alioolio.prompt.response.PromptRes;
+import com.uscode.alioolio.prompt.response.PromptResultRes;
 import com.uscode.alioolio.prompt.service.PromptResultService;
 import com.uscode.alioolio.prompt.service.PromptService;
 import com.uscode.alioolio.result.res.*;
@@ -98,5 +99,9 @@ public class ResultService {
 
         rstSt3A4Res.setUserId(userId);
         return rstSt3A4Res;
+    }
+
+    public PromptResultRes getResult(String userId) {
+        return promptResultService.getPromptResult(userId);
     }
 }

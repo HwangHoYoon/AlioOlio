@@ -1,5 +1,6 @@
 package com.uscode.alioolio.result.controller;
 
+import com.uscode.alioolio.prompt.response.PromptResultRes;
 import com.uscode.alioolio.result.res.RstSt1Res;
 import com.uscode.alioolio.result.res.RstSt2Res;
 import com.uscode.alioolio.result.res.RstSt3A4Res;
@@ -42,6 +43,14 @@ public class ResultController {
             @Schema(description = "level", example = "농업 경력이 있어요", name = "level") @RequestParam(name = "level") String level
     )throws IOException {
         return resultService.step3And4(location, crop, money, level);
+    }
+
+    @GetMapping(value = "/getResult")
+    @Operation(summary = "최종 결과 조회", description = "최종 결과 조회")
+    public PromptResultRes getResult(
+            @Schema(description = "userId", example = "1234-124124-55", name = "userId") @RequestParam(name = "userId") String userId
+    )throws IOException {
+        return resultService.getResult(userId);
     }
 
 }
