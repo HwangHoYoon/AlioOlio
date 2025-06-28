@@ -38,4 +38,4 @@ jobs:
           docker rm -f uscode-server  || true
           docker rmi $(docker images -f "dangling=true" -q) || true
           docker pull ${{ secrets.DOCKER_REPO }}/alioolio:latest
-          docker run -v /var/log/service:/var/log/service  -p 8080:8080 --name uscode-server --network uscode-network -d --restart unless-stopped ${{ secrets.DOCKER_REPO }}/alioolio:latest
+          docker run -v /var/log/service:/var/log/service --name uscode-server --network uscode-network -p 8080:8080 -d ${{ secrets.DOCKER_REPO }}/alioolio:latest
