@@ -50,5 +50,5 @@ spring:
           size=5:
 
 cors:
-  origins: http://localhost:3000
-  domain: localhost
+  origins: http://localhost:3000,https://dreamfarm.im,https://www.dreamfarm.im
+  domain: .dreamfarm.im
