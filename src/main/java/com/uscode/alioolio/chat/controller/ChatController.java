@@ -5,16 +5,15 @@ import com.uscode.alioolio.chat.res.ChatRes;
 import com.uscode.alioolio.chat.service.ChatService;
 import com.uscode.alioolio.common.exception.CommonException;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import reactor.core.publisher.Flux;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
@@ -27,13 +26,13 @@ public class ChatController {
 
     private final ChatService chatService;
 
-    @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+/*    @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @Operation(summary = "질문", description = "질문")
     public String chat(@Schema(description = "content", example = "테스트", name = "content") String content) throws IOException {
         return chatService.chat(content);
-    }
+    }*/
 
-    @GetMapping(value = "/chatToStream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    /*@GetMapping(value = "/chatToStream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @Operation(summary = "질문", description = "질문")
     public Flux<String> streamChat(@Schema(description = "content", example = "테스트", name = "content") String content,
                                    @Schema(description = "search", example = "false", name = "search") boolean search
@@ -68,13 +67,14 @@ public class ChatController {
             // 예를 들어 encoding 파라미터가 유효하지 않은 경우
             throw new CommonException("Invalid parameter: " + e.getMessage(), HttpStatus.BAD_REQUEST.name());
         }
-    }
+    }*/
 
     /**
      * 텍스트를 음성으로 변환하여 오디오 스트림으로 반환하는 API 엔드포인트.
      * /synthesize?text=안녕하세요&languageCode=ko-KR&voiceName=ko-KR-Wavenet-A&audioEncoding=MP3
      */
     @PostMapping("/chatToAudio")
+    @Operation(summary = "질문", description = "음성답변")
     public ChatRes chatToAudio(
             @RequestBody ChatReq chatReq
             ) {
