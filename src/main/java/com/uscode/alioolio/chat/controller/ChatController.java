@@ -5,17 +5,17 @@ import com.uscode.alioolio.chat.res.ChatRes;
 import com.uscode.alioolio.chat.service.ChatService;
 import com.uscode.alioolio.common.exception.CommonException;
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.codec.binary.Base64;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
+import java.util.concurrent.ExecutionException;
 
 @RestController
 @Slf4j
@@ -26,11 +26,11 @@ public class ChatController {
 
     private final ChatService chatService;
 
-/*    @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
+    @GetMapping(value = "/chat", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @Operation(summary = "질문", description = "질문")
-    public String chat(@Schema(description = "content", example = "테스트", name = "content") String content) throws IOException {
+    public String chat(@Schema(description = "content", example = "테스트", name = "content") String content) throws IOException, ExecutionException {
         return chatService.chat(content);
-    }*/
+    }
 
     /*@GetMapping(value = "/chatToStream", produces = MediaType.TEXT_EVENT_STREAM_VALUE)
     @Operation(summary = "질문", description = "질문")
@@ -96,7 +96,6 @@ public class ChatController {
             // 예를 들어 audioEncoding 파라미터가 유효하지 않은 경우
             throw new CommonException("Invalid parameter: " + e.getMessage(), HttpStatus.BAD_REQUEST.name());
         } catch (IOException e) {
-            e.printStackTrace();
             throw new CommonException("Failed to synthesize speech: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR.name());
         }
     }
