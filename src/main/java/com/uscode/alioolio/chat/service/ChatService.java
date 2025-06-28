@@ -35,7 +35,7 @@ public class ChatService {
     private final PromptService promptService;
     public String chat(String content) throws IOException, ExecutionException {
         // return vertexService.chat(content);
-        vertexService.m();
+        //vertexService.m();
         return "";
     }
 
