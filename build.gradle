@@ -1,0 +1,80 @@
+plugins {
+    id 'java'
+    id 'org.springframework.boot' version '3.2.0'
+    id 'io.spring.dependency-management' version '1.1.4'
+}
+
+group = 'com.uscode'
+version = '0.0.1-SNAPSHOT'
+
+ext {
+    set('springAiVersion', "1.0.0")
+}
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(17)
+    }
+}
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+repositories {
+    mavenCentral()
+    maven { url = 'https://repo.spring.io/snapshot' }
+}
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    implementation 'org.springframework.ai:spring-ai-starter-model-vertex-ai-gemini'
+    compileOnly 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.springframework.security:spring-security-test'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+
+    // stt
+    implementation 'com.google.cloud:google-cloud-speech:4.56.0'
+
+    // tts
+    implementation 'com.google.cloud:google-cloud-texttospeech:2.60.0'
+
+
+
+    //servlet
+    implementation 'javax.servlet:javax.servlet-api:4.0.1'
+
+    //hibernate
+    implementation 'org.hibernate.validator:hibernate-validator:8.0.0.Final'
+
+    // gson
+    implementation'com.google.code.gson:gson:2.8.7'
+
+    // configuration
+    annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+
+    // mysql
+    implementation 'mysql:mysql-connector-java:8.0.33'
+
+    // JPA
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    //spring-doc
+    implementation group: 'org.springdoc', name: 'springdoc-openapi-starter-webmvc-ui', version: '2.3.0'
+    implementation group: 'commons-codec', name: 'commons-codec', version: '1.15' // 또는 최신 버전
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.ai:spring-ai-bom:${springAiVersion}"
+    }
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+}
