@@ -64,7 +64,8 @@ public class ChatService {
                 .replace("${level}", promptResultRes.getLevel())
                 .replace("${crop}", promptResultRes.getCrop())
                 .replace("${money}", promptResultRes.getMoney())
-                .replace("${period}", promptResultRes.getPeriod());
+                .replace("${period}", promptResultRes.getPeriod())
+                .replace("${summary}", promptResultRes.getSummary());
         prompt.setSystemPrompt(systemPrompt);
 
         //TODO 히스토리 조회 및 추가

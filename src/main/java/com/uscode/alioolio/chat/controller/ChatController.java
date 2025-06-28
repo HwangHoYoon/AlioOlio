@@ -80,6 +80,16 @@ public class ChatController {
             ) {
         String text = chatReq.getText();
         String userId = chatReq.getUserId();
+
+        log.info("#################################################");
+        log.info("userId : " + userId);
+        log.info("#################################################");
+
+        log.info("#################################################");
+        log.info("text : " + text);
+        log.info("#################################################");
+
+
         if (text == null || text.trim().isEmpty()) {
             throw new CommonException("Text parameter is required.", HttpStatus.BAD_REQUEST.name());
         }
