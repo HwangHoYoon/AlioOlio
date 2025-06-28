@@ -20,6 +20,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 
 @Service
@@ -32,8 +33,9 @@ public class ChatService {
     private final AudioChatService audioChatService;
     private final PromptResultService promptResultService;
     private final PromptService promptService;
-    public String chat(String content) throws IOException {
+    public String chat(String content) throws IOException, ExecutionException {
         // return vertexService.chat(content);
+        vertexService.m();
         return "";
     }
 
