@@ -1,7 +1,10 @@
 package com.uscode.alioolio.api.google.vertex.service;
 
 import com.google.cloud.vertexai.VertexAI;
-import com.google.cloud.vertexai.api.*;
+import com.google.cloud.vertexai.api.Content;
+import com.google.cloud.vertexai.api.GenerateContentResponse;
+import com.google.cloud.vertexai.api.Part;
+import com.google.cloud.vertexai.api.Tool;
 import com.google.cloud.vertexai.generativeai.GenerativeModel;
 import com.google.cloud.vertexai.generativeai.ResponseHandler;
 import com.uscode.alioolio.chat.res.AudioChatRes;
@@ -46,6 +49,7 @@ public class VertexService {
         String systemPrompt = promptRes.getSystemPrompt();
 
         try (VertexAI vertexAi = new VertexAI(projectId, location)) {
+
             Tool googleSearchTool = Tool.newBuilder()
                     .setGoogleSearch(Tool.GoogleSearch.newBuilder())
                     .build();
@@ -177,4 +181,5 @@ public class VertexService {
             log.info("스트리밍 요청이 완료되었습니다.");
         }
     }*/
+
 }
