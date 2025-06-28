@@ -60,8 +60,7 @@ public class ResultService {
                 .replace("${money}", money)
                 .replace("${period}", "선택 안함");
         prompt.setPrompt(promptText);
-        String st3Result = vertexService.chat(prompt).replaceAll("^\\s*```json\\s*", "")  // 시작 부분 제거
-                .replaceAll("\\s*```\\s*$", "");
+        String st3Result = vertexService.chat(prompt);
         ObjectMapper mapper = new ObjectMapper();
         RstSt3Res rstSt3Res = mapper.readValue(st3Result, RstSt3Res.class);
 
@@ -73,7 +72,7 @@ public class ResultService {
                 .replace("${money}", rstSt3Res.getEstimatedBudget())
                 .replace("${period}", rstSt3Res.getPreparationPeriod());
         lastPrompt.setPrompt(lastPromptText);
-        String st4Result = vertexService.chat(lastPrompt).replaceAll("^\\s*```json\\s*", "");
+        String st4Result = vertexService.chat(lastPrompt);
         RstSt4Res rstSt4Res = mapper.readValue(st4Result, RstSt4Res.class);
 
         rstSt3A4Res.setLocation(rstSt3Res.getLocation());

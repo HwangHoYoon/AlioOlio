@@ -20,7 +20,7 @@ spring:
       ai:
         gemini:
           project-id: uscode-porject
-          location: us-central4
+          location: us-central1
   data:
     web:
       pageable:

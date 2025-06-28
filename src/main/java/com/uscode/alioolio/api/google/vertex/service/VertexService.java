@@ -1,10 +1,7 @@
 package com.uscode.alioolio.api.google.vertex.service;
 
 import com.google.cloud.vertexai.VertexAI;
-import com.google.cloud.vertexai.api.Content;
-import com.google.cloud.vertexai.api.GenerateContentResponse;
-import com.google.cloud.vertexai.api.Part;
-import com.google.cloud.vertexai.api.Tool;
+import com.google.cloud.vertexai.api.*;
 import com.google.cloud.vertexai.generativeai.GenerativeModel;
 import com.google.cloud.vertexai.generativeai.ResponseHandler;
 import com.uscode.alioolio.chat.res.AudioChatRes;
@@ -32,7 +29,8 @@ public class VertexService {
         log.info("응답을 시작합니다...");
         log.info("========================================");
 
-        String result = generateContent(promptRes);
+        String result = generateContent(promptRes).replaceAll("^\\s*```json\\s*", "")  // 시작 부분 제거
+                .replaceAll("\\s*```\\s*$", "");;
 
         log.info("\n========================================");
         log.info("응답이 완료되었습니다.");
@@ -46,6 +44,7 @@ public class VertexService {
         String prompt = promptRes.getPrompt();
         String modelName = promptRes.getModelName();
         String systemPrompt = promptRes.getSystemPrompt();
+
         try (VertexAI vertexAi = new VertexAI(projectId, location)) {
             Tool googleSearchTool = Tool.newBuilder()
                     .setGoogleSearch(Tool.GoogleSearch.newBuilder())
@@ -113,10 +112,28 @@ public class VertexService {
                         .setTools(Collections.singletonList(googleSearchTool))
                         .build();
             }
+
+            System.out.println("###############################################  시스템 요청  ########################################");
+            System.out.println(systemInstruction);
+            System.out.println("###############################################  프롬프트 요청  ########################################");
+            System.out.println(prompt);
+
+            log.info("###############################################  시스템 요청  ########################################");
+            log.info(systemPrompt);
+            log.info("###############################################  프롬프트 요청  ########################################");
+            log.info(prompt);
+
+
             GenerateContentResponse generateContentResponse = model.generateContent(historyList);
 
             // 결과 텍스트 가져오기
-            return ResponseHandler.getText(generateContentResponse);
+            System.out.println("###############################################   응답 ########################################");
+            String resultText = ResponseHandler.getText(generateContentResponse);
+            System.out.println(resultText);
+
+            log.info("###############################################   응답 ########################################");
+            log.info(resultText);
+            return resultText;
         }
     }
    /* public void streamChat(String content, boolean search, Consumer<String> onText) {
