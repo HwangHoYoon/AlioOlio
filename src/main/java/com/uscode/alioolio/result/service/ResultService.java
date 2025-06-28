@@ -2,6 +2,7 @@ package com.uscode.alioolio.result.service;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.uscode.alioolio.api.google.vertex.service.VertexService;
+import com.uscode.alioolio.api.service.RagService;
 import com.uscode.alioolio.prompt.request.PromptResultReq;
 import com.uscode.alioolio.prompt.response.PromptRes;
 import com.uscode.alioolio.prompt.response.PromptResultRes;
@@ -24,6 +25,7 @@ public class ResultService {
     private final VertexService vertexService;
     private final PromptService promptService;
     private final PromptResultService promptResultService;
+    private final RagService ragService;
 
     public RstSt1Res step1() throws IOException {
         RstSt1Res rstSt1Res = new RstSt1Res();
@@ -102,5 +104,9 @@ public class ResultService {
 
     public PromptResultRes getResult(String userId) {
         return promptResultService.getPromptResult(userId);
+    }
+
+    public String step4(String query) {
+        return ragService.searchRag(query);
     }
 }

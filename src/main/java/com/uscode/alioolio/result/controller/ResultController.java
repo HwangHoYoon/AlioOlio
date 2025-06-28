@@ -45,6 +45,14 @@ public class ResultController {
         return resultService.step3And4(location, crop, money, level);
     }
 
+    @GetMapping(value = "/step4")
+    @Operation(summary = "입력 4단계", description = "입력 4단계")
+    public String step4(
+            @Schema(description = "query", example = "이번달 농작물 추천해줘", name = "query") @RequestParam(name = "query") String query
+    )throws IOException {
+        return resultService.step4(query);
+    }
+
     @GetMapping(value = "/getResult")
     @Operation(summary = "최종 결과 조회", description = "최종 결과 조회")
     public PromptResultRes getResult(
